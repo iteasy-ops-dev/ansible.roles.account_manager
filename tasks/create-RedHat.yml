@@ -3,10 +3,16 @@
 - name: Set group_name to group or username
   set_fact:
     group_name: "{{ group if group is defined and group != '' else username }}"
-  
-- name: Debug the group_name
+
+- name: Set home_dir to default if not defined or empty
+  set_fact:
+    home_dir: "{{ home_dir if home_dir is defined and home_dir != '' else '/home/' ~ username }}"
+
+- name: Debug the group_name and home_dir
   debug:
-    msg: "group_name is set to: {{ group_name }}"
+    msg:
+      - "group_name is set to: {{ group_name }}"
+      - "home_dir is set to: {{ home_dir }}"
 
 - name: Check if group exists
   command: "getent group {{ group_name }}"
@@ -28,4 +34,3 @@
     shell: "{{ shell }}"
     group: "{{ group_name }}"
     state: present
-

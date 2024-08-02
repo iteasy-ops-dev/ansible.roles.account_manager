@@ -4,7 +4,7 @@ echo "Install Ansible Roles."
 ansible-galaxy install --force --ignore-errors -r requirements.yml -p roles
 
 echo "Test Ansible Roles."
-ansible-playbook -i inventory test.yml -e "{action: "create", username:"ansible1"}"
+ansible-playbook -i inventory test.yml -e '{"action": "create", "username":"ansible1"}'
 
 
 
