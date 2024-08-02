@@ -1,0 +1,10 @@
+# tasks file for iteasy.ansible.roles.account_manager
+---
+- name: Create a user account
+  user:
+    name: "{{ username }}"
+    password: "{{ password | default('') }}"
+    home: "{{ home_dir }}"
+    shell: "{{ shell }}"
+    group: "{{ group }}"
+    state: present

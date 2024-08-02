@@ -1,0 +1,13 @@
+---
+# vars file for iteasy.ansible.roles.account_manager
+action: "create" # create | update | delete
+username: "iteasy"
+comment: "Ansible Managed Account."
+password: ""
+
+home_dir: ""
+
+shell: "/bin/bash"
+group: ""
+
+remove_home: true
