@@ -2,16 +2,23 @@
 ---
 - name: Set group_name to group or username
   set_fact:
-    group_name: "{{ group | default(username) }}"
+    group_name: "{{ group if group is defined and group != '' else username }}"
   
 - name: Debug the group_name
   debug:
     msg: "group_name is set to: {{ group_name }}"
 
-- name: Create a group if it does not exist
+- name: Check if group exists
+  command: "getent group {{ group_name }}"
+  register: group_check
+  failed_when: false
+  changed_when: false
+
+- name: Create the group if it does not exist
   group:
     name: "{{ group_name }}"
     state: present
+  when: group_check.rc != 0
 
 - name: Create a user account
   user:
@@ -21,3 +28,4 @@
     shell: "{{ shell }}"
     group: "{{ group_name }}"
     state: present
+
