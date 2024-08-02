@@ -1,10 +1,15 @@
 # tasks file for iteasy.ansible.roles.account_manager
 ---
+- name: Ensure group variable is set
+  set_fact:
+    group_name: "{{ group | default(username) }}"
+  when: group is not defined or group == ''
+  
 - name: Create a group if it does not exist
   group:
     name: "{{ group | default(username) }}"
     state: present
-    
+
 - name: Create a user account
   user:
     name: "{{ username }}"
