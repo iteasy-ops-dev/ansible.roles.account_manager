@@ -39,7 +39,7 @@
 - name: Create a user account
   user:
     name: "{{ username }}"
-    password: "{{ password }}"
+    password: "{{ password | password_hash('sha512') }}"
     home: "{{ home_dir }}"
     shell: "{{ shell }}"
     group: "{{ group_name }}"
