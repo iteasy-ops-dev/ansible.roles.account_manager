@@ -8,6 +8,5 @@ password: ""
 home_dir: ""
 
 shell: "/bin/bash"
-group: ""
 
 remove_home: true
