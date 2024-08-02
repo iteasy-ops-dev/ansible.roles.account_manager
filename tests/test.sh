@@ -4,20 +4,8 @@ echo "Install Ansible Roles."
 ansible-galaxy install --force --ignore-errors -r requirements.yml -p roles
 
 echo "Test Ansible Roles."
-ansible-playbook -i inventory test.yml -e '{"action": "create", "username":"ansible1"}'
+ansible-playbook -i inventory test.yml -e '{"action": "create", "username":test1", "password":"1111"}'
 
+ansible-playbook -i inventory test.yml -e '{"action": "udpate", "username":test1", "password":"1123"}'
 
-
-# userdel iteasy
-# rm -rf /home/iteasy/
-# rm -rf /etc/httpd/logs/vhosts/iteasy/
-# echo > /etc/httpd/conf.d/vhosts.conf
-# echo > /etc/httpd/conf/nobots.conf
-# echo > /etc/httpd/conf.d/cband.conf
-# /usr/sbin/apachectl -t
-# userdel iteasy1
-# rm -rf /home/iteasy1/
-# rm -rf /etc/httpd/logs/vhosts/iteasy1/
-# userdel iteasy2
-# rm -rf /home/iteasy2/
-# rm -rf /etc/httpd/logs/vhosts/iteasy2/
+ansible-playbook -i inventory test.yml -e '{"action": "delete", "username":test1"}'

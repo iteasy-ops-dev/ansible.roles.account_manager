@@ -33,4 +33,5 @@
     home: "{{ home_dir }}"
     shell: "{{ shell }}"
     group: "{{ group_name }}"
+    comment: "{{ comment }}"
     state: present
