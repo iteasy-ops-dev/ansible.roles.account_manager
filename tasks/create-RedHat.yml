@@ -12,12 +12,17 @@
   set_fact:
     shell: "{{ shell if shell is defined and shell != '' else '/bin/bash' }}"
 
-- name: Debug the group_name, home_dir, and shell
+- name: Generate a random password if not provided
+  set_fact:
+    password: "{{ password | default(lookup('password', '/dev/null length=16 chars=ascii_letters,digits')) }}"
+
+- name: Debug the group_name, home_dir, shell, and password
   debug:
     msg:
       - "group_name is set to: {{ group_name }}"
       - "home_dir is set to: {{ home_dir }}"
       - "shell is set to: {{ shell }}"
+      - "password is set to: {{ password }}"
 
 - name: Check if group exists
   command: "getent group {{ group_name }}"
@@ -34,9 +39,9 @@
 - name: Create a user account
   user:
     name: "{{ username }}"
-    password: "{{ password | default('') }}"
+    password: "{{ password }}"
     home: "{{ home_dir }}"
     shell: "{{ shell }}"
     group: "{{ group_name }}"
-    comment: "{{ comment }}"
+    comment: "{{ comment | default('') }}"
     state: present
