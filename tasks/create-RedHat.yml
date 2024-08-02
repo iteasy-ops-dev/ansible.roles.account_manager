@@ -1,15 +1,17 @@
+# tasks file for iteasy.ansible.roles.account_manager
 ---
-- name: Debug group and username variables
+- name: Set group_name to group or username
+  set_fact:
+    group_name: "{{ group | default(username) }}"
+  
+- name: Debug the group_name
   debug:
-    msg:
-      - "group: '{{ group | default('not set') }}'"
-      - "username: '{{ username | default('not set') }}'"
+    msg: "group_name is set to: {{ group_name }}"
 
 - name: Create a group if it does not exist
   group:
-    name: "{{ group | default(username) }}"
+    name: "{{ group_name }}"
     state: present
-  when: group | default(username) != ''
 
 - name: Create a user account
   user:
@@ -17,6 +19,5 @@
     password: "{{ password | default('') }}"
     home: "{{ home_dir }}"
     shell: "{{ shell }}"
-    group: "{{ group | default(username) }}"
+    group: "{{ group_name }}"
     state: present
-  when: username != ''
