@@ -1,22 +1,31 @@
 # tasks file for iteasy.ansible.roles.account_manager
 ---
+- name: Check if the user exists
+  command: "getent passwd {{ username }}"
+  register: user_check
+  failed_when: false
+  changed_when: false
+
+- name: Fail if the user does not exist
+  fail:
+    msg: "The user {{ username }} does not exist."
+  when: user_check.rc != 0
+
 - name: Update user password
-  when: password is defined and password != omit
   user:
     name: "{{ username }}"
-    password: "{{ password }}"
-    state: present
+    password: "{{ password | password_hash('sha512')}}"
+  when: password is defined and password is not none
 
 - name: Update user group
-  when: group is defined and group != omit
   user:
     name: "{{ username }}"
     groups: "{{ group }}"
     append: yes
+  when: group is defined and group is not none
 
 - name: Update user shell
-  when: shell is defined and shell != omit
   user:
     name: "{{ username }}"
     shell: "{{ shell }}"
-    state: present
+  when: shell is defined and shell is not none
