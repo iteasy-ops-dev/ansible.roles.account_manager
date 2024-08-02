@@ -1,5 +1,10 @@
 # tasks file for iteasy.ansible.roles.account_manager
 ---
+- name: Create a group if it does not exist
+  group:
+    name: "{{ group | default(username) }}"
+    state: present
+    
 - name: Create a user account
   user:
     name: "{{ username }}"
