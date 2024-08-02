@@ -1,0 +1,15 @@
+---
+# defaults file for iteasy.ansible.roles.account_manager
+
+# common
+action: "" # create | update | delete
+username: ""
+comment: "Ansible Managed Account."
+password: ""
+
+home_dir: ""
+
+shell: "/bin/bash"
+group: ""
+
+remove_home: true

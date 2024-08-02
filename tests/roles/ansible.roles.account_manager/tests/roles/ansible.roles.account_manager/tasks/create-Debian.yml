@@ -6,5 +6,5 @@
     password: "{{ password | default('') }}"
     home: "{{ home_dir }}"
     shell: "{{ shell }}"
-    group: "{{ group | default({{ usename }}) }}"
+    group: "{{ group }}"
     state: present

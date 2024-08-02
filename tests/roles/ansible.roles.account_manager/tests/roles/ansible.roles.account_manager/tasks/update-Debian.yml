@@ -1,0 +1,22 @@
+# tasks file for iteasy.ansible.roles.account_manager
+---
+- name: Update user password
+  when: password is defined and password != omit
+  user:
+    name: "{{ username }}"
+    password: "{{ password }}"
+    state: present
+
+- name: Update user group
+  when: group is defined and group != omit
+  user:
+    name: "{{ username }}"
+    groups: "{{ group }}"
+    append: yes
+
+- name: Update user shell
+  when: shell is defined and shell != omit
+  user:
+    name: "{{ username }}"
+    shell: "{{ shell }}"
+    state: present
