@@ -3,10 +3,5 @@
 action: "create" # create | update | delete
 username: "iteasy"
 comment: "Ansible Managed Account."
-password: ""
-
-home_dir: ""
-
-shell: "/bin/bash"
 
 remove_home: true
