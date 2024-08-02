@@ -1,0 +1,19 @@
+galaxy_info:
+  role_name: iteasy_ansible_roles_account_manager
+  author: qksgnsw
+  description: manage account.
+  company: iteasy
+  license: "license (BSD)"
+
+  min_ansible_version: "2.1"
+
+  galaxy_tags:
+    - account
+    - linux
+    - debian
+    - redhat
+    - create
+    - update
+    - delete
+
+dependencies: []

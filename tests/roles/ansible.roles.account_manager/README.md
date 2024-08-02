@@ -24,7 +24,7 @@ Example Playbook
 - hosts: vms
   remote_user: root
   roles:
-    - ansible.roles.account_manager
+    - ansible.roles.webhost_manager
 ```
 
 License

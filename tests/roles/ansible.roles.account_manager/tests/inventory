@@ -1,0 +1,2 @@
+[vms]
+172.16.74.100 ansible_user=iteasy ansible_password=iteasy ansible_become_pass=iteasy
