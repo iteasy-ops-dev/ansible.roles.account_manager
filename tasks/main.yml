@@ -43,8 +43,7 @@
 #   when: python_version is not defined or python_version is version('3.0.0', '<')
 - name: Extract Python version (if Python is installed)
   set_fact:
-    # python_version: "{{ python_check.stdout | regex_search('Python (\\d+\\.\\d+\\.\\d+)') }}"
-    python_version: "{{ python_check.stdout | regex_search('(?:Python )?(\\d+\\.\\d+\\.\\d+)') }}"
+    python_version: "{{ python_check.stdout | regex_search('(\\d+\\.\\d+\\.\\d+)') }}"
   when: python_check.rc == 0
 
 - name: Convert Python version to a list of integers
