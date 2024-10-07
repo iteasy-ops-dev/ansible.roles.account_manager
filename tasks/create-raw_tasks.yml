@@ -13,10 +13,6 @@
   set_fact:
     shell: "{{ shell if shell is defined and shell != '' else '/bin/bash' }}"
 
-# - name: Generate a random password if not provided
-#   set_fact:
-#     password: "{{ password }}"
-
 - name: Debug the group_name, home_dir, shell, and password
   debug:
     msg:

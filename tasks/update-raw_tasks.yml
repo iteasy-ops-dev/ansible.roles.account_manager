@@ -13,7 +13,7 @@
   when: user_check.rc != 0
 
 - name: Update user password
-  raw: "usermod -p $(openssl passwd -6 {{ password }}) {{ username }}"
+  raw: "usermod -p $(openssl passwd {{ password }}) {{ username }}"
   when: password is defined and password is not none
 
 - name: Update user group
