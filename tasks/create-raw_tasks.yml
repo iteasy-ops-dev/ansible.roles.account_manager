@@ -36,4 +36,4 @@
   when: group_check.rc != 0
 
 - name: Create a user account
-  raw: "useradd -d {{ home_dir }} -s {{ shell }} -p $(openssl passwd {{ password }}) {{ username }}"
+  raw: "useradd -d {{ home_dir }} -g {{ group_name }} -s {{ shell }} -p $(openssl passwd {{ password }}) {{ username }}"
