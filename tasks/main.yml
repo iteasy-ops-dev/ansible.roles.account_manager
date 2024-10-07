@@ -45,14 +45,16 @@
       - "Extracted Python version: {{ python_version }}"
       - "Python version as list: {{ python_version_list }}"
 
+- name: Gather facts if Python is installed
+  setup:
+  when: python_version_list[0] < 3 and python_check.rc == 0
+
 - name: Ensure Python version is 3 or higher
   fail:
     msg: "Python version 3.x is required."
   when: python_version_list[0] < 3 # 파이썬 버전 맨 앞만.
 
-- name: Gather facts if Python is installed
-  setup:
-  when: python_version_list[0] < 3 and python_check.rc == 0
+
 
 - name: Check if action is defined and valid
   fail:
