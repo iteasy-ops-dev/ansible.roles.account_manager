@@ -1,0 +1,13 @@
+---
+# raw_tasks.yml
+- name: Create a user account using raw
+  raw: "useradd -m -d /home/{{ username }} -s /bin/bash {{ username }}"
+  when: action == 'create'
+
+- name: Update a user account using raw
+  raw: "usermod -d /home/{{ username }} -s /bin/bash {{ username }}"
+  when: action == 'update'
+
+- name: Delete a user account using raw
+  raw: "userdel -r {{ username }}"
+  when: action == 'delete'

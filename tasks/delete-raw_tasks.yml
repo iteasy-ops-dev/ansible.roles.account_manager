@@ -1,0 +1,21 @@
+---
+# raw_tasks.yml - Delete User
+
+- name: Check if the user exists
+  raw: "getent passwd {{ username }}"
+  register: user_check
+  failed_when: false
+  changed_when: false
+
+- name: Fail if the user does not exist
+  fail:
+    msg: "The user {{ username }} does not exist."
+  when: user_check.rc != 0
+
+- name: Delete user account
+  raw: "userdel {{ username }} {{ '--remove' if remove_home | default(false) else '' }}"
+  when: user_check.rc == 0
+
+- name: Delete user mail spool (if defined)
+  raw: "rm -f /var/mail/{{ username }}"
+  when: mail_spool is defined and mail_spool | bool
