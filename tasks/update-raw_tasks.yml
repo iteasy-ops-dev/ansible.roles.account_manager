@@ -12,22 +12,14 @@
     msg: "The user {{ username }} does not exist."
   when: user_check.rc != 0
 
-- name: Debug the group_name, home_dir, shell, and password
-  debug:
-    msg:
-      - "group_name is set to: {{ group_name }}"
-      - "shell is set to: {{ shell }}"
-      - "password is set to: {{ password }}"
-      - "username is set to: {{ username }}"
-
 - name: Update user password
   raw: "usermod -p $(openssl passwd {{ password }}) {{ username }}"
-  when: password is defined and password is not none
+  when: password is defined and password != ''
 
 - name: Update user group
   raw: "usermod -aG {{ group_name }} {{ username }}"
-  when: group_name is defined and group_name is not none
+  when: group_name is defined and group_name != ''
 
 - name: Update user shell
   raw: "chsh -s {{ shell }} {{ username }}"
-  when: shell is defined and shell is not none
+  when: shell is defined and shell != ''
