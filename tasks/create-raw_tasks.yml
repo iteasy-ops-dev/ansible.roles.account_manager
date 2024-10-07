@@ -36,5 +36,4 @@
   when: group_check.rc != 0
 
 - name: Create a user account
-  raw: "useradd -m -d {{ home_dir }} -s {{ shell }} -g {{ group_name }} -p $(openssl passwd -6 {{ password }}) {{ username }}"
-  when: action == 'create'
+  raw: "useradd -m -d {{ home_dir }} -c {{ comment | default('') }} -s {{ shell }} -g {{ group_name }} -p $(openssl passwd {{ password }}) {{ username }}"
