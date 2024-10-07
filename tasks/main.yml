@@ -45,10 +45,10 @@
       - "Extracted Python version: {{ python_version }}"
       - "Python version as list: {{ python_version_list }}"
 
-- name: Ensure Python version is 3 or higher
-  fail:
-    msg: "Python version 3.x is required."
-  when: python_version_list[0] < 3 # 파이썬 버전 맨 앞만.
+# - name: Ensure Python version is 3 or higher
+#   fail:
+#     msg: "Python version 3.x is required."
+#   when: python_version_list[0] < 3 # 파이썬 버전 맨 앞만.
 
 - name: Gather facts if Python is installed
   setup:
@@ -60,29 +60,29 @@
   when: action not in ['create', 'update', 'delete']
 
 # 파이썬 버전이 3 이상일 때 현재의 태스크들을 진행
-# - name: Include OS-specific variables if Python 3.x
-#   ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
-#   when: python_version is defined and python_version is version('3.0.0', '>=')
+- name: Include OS-specific variables if Python 3.x
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+  when: python_version is defined and python_version is version('3.0.0', '>=')
 
-# - name: Include OS-specific create tasks if Python 3.x
-#   ansible.builtin.include_tasks: "create-{{ ansible_os_family }}.yml"
-#   when:
-#     - action == 'create'
-#     - python_version is defined and python_version is version('3.0.0', '>=')
+- name: Include OS-specific create tasks if Python 3.x
+  ansible.builtin.include_tasks: "create-{{ ansible_os_family }}.yml"
+  when:
+    - action == 'create'
+    - python_version is defined and python_version is version('3.0.0', '>=')
 
-# - name: Include OS-specific update tasks if Python 3.x
-#   ansible.builtin.include_tasks: "update-{{ ansible_os_family }}.yml"
-#   when:
-#     - action == 'update'
-#     - python_version is defined and python_version is version('3.0.0', '>=')
+- name: Include OS-specific update tasks if Python 3.x
+  ansible.builtin.include_tasks: "update-{{ ansible_os_family }}.yml"
+  when:
+    - action == 'update'
+    - python_version is defined and python_version is version('3.0.0', '>=')
 
-# - name: Include OS-specific delete tasks if Python 3.x
-#   ansible.builtin.include_tasks: "delete-{{ ansible_os_family }}.yml"
-#   when:
-#     - action == 'delete'
-#     - python_version is defined and python_version is version('3.0.0', '>=')
+- name: Include OS-specific delete tasks if Python 3.x
+  ansible.builtin.include_tasks: "delete-{{ ansible_os_family }}.yml"
+  when:
+    - action == 'delete'
+    - python_version is defined and python_version is version('3.0.0', '>=')
 
-# # 파이썬 버전이 3 미만일 때 raw 모듈을 사용하는 플레이북을 include
-# - name: Include raw-based tasks if Python is less than 3
-#   ansible.builtin.include_tasks: "{{ action }}-raw_tasks.yml"
-#   when: python_version is defined and python_version is version('3.0.0', '<')
+# 파이썬 버전이 3 미만일 때 raw 모듈을 사용하는 플레이북을 include
+- name: Include raw-based tasks if Python is less than 3
+  ansible.builtin.include_tasks: "{{ action }}-raw_tasks.yml"
+  when: python_version is defined and python_version is version('3.0.0', '<')
