@@ -9,7 +9,7 @@ password: ""
 
 home_dir: ""
 
-shell: "/bin/bash"
+shell: ""
 group: ""
 
 remove_home: true
