@@ -20,9 +20,6 @@
 #   ansible.builtin.include_tasks: "delete-{{ ansible_os_family }}.yml"
 #   when: action == 'delete'
 
-# ---
-# tasks file for iteasy.ansible.roles.account_manager
-
 - name: Check if action is defined and valid
   fail:
     msg: "Invalid or missing 'action' variable. It must be 'create', 'update', or 'delete'."
