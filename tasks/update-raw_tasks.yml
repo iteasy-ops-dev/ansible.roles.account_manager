@@ -17,8 +17,8 @@
   when: password is defined and password is not none
 
 - name: Update user group
-  raw: "usermod -aG {{ group }} {{ username }}"
-  when: group is defined and group is not none
+  raw: "usermod -aG {{ group_name }} {{ username }}"
+  when: group_name is defined and group_name is not none
 
 - name: Update user shell
   raw: "chsh -s {{ shell }} {{ username }}"
