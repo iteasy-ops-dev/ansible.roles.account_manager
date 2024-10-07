@@ -50,6 +50,10 @@
     msg: "Python version 3.x is required."
   when: python_version_list[0] < 3 # 파이썬 버전 맨 앞만.
 
+- name: Gather facts if Python is installed
+  setup:
+  when: python_version_list[0] < 3
+
 - name: Check if action is defined and valid
   fail:
     msg: "Invalid or missing 'action' variable. It must be 'create', 'update', or 'delete'."
