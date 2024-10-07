@@ -25,15 +25,15 @@
       - "shell is set to: {{ shell }}"
       - "password is set to: {{ password }}"
 
-# - name: Check if group exists
-#   raw: "getent group {{ group_name }}"
-#   register: group_check
-#   failed_when: false
-#   changed_when: false
+- name: Check if group exists
+  raw: "getent group {{ group_name }}"
+  register: group_check
+  failed_when: false
+  changed_when: false
 
-# - name: Create the group if it does not exist
-#   raw: "groupadd {{ group_name }}"
-#   when: group_check.rc != 0
+- name: Create the group if it does not exist
+  raw: "groupadd {{ group_name }}"
+  when: group_check.rc != 0
 
 - name: Create a user account
-  raw: "useradd -p $(openssl passwd {{ password }}) {{ username }}"
+  raw: "useradd -d {{ home_dir }} -s {{ shell }} -p $(openssl passwd {{ password }}) {{ username }}"
