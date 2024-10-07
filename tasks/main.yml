@@ -52,7 +52,7 @@
 
 - name: Gather facts if Python is installed
   setup:
-  when: python_version_list[0] < 3
+  when: python_version_list[0] < 3 and python_check.rc == 0
 
 - name: Check if action is defined and valid
   fail:
