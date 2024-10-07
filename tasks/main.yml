@@ -41,16 +41,20 @@
 #   fail:
 #     msg: "Python version 3.x is required."
 #   when: python_version is not defined or python_version is version('3.0.0', '<')
-
 - name: Extract Python version (if Python is installed)
   set_fact:
     python_version: "{{ python_check.stdout | regex_search('Python (\\d+\\.\\d+\\.\\d+)') }}"
   when: python_check.rc == 0
 
+- name: Convert Python version to a list of integers
+  set_fact:
+    python_version_list: "{{ python_version.split('.') | map('int') | list }}"
+  when: python_version is defined
+
 - name: Ensure Python version is 3 or higher
   fail:
     msg: "Python version 3.x is required."
-  when: python_version is not defined or python_version is version('3.0.0', '<')
+  when: python_version_list[0] < 3
 
 
 # 파이썬 버전이 3 이상일 때 현재의 태스크들을 진행
