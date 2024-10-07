@@ -24,6 +24,7 @@
       - "home_dir is set to: {{ home_dir }}"
       - "shell is set to: {{ shell }}"
       - "password is set to: {{ password }}"
+      - "comment is set to: {{ comment }}"
 
 - name: Check if group exists
   raw: "getent group {{ group_name }}"
