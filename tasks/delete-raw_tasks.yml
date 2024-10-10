@@ -12,6 +12,11 @@
     msg: "The user {{ username }} does not exist."
   when: user_check.rc != 0
 
+- name: Debug the user_name, group_name, home_dir, shell, and password
+  debug:
+    msg:
+      - "user_name is set to: {{ username }}"
+
 - name: Delete user account
   raw: "userdel {{ username }} {{ '--remove' if remove_home | default(false) else '' }}"
   when: user_check.rc == 0

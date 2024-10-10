@@ -17,9 +17,10 @@
   set_fact:
     comment: "{{ comment if comment is defined and comment != '' else 'Ansible Managed Account.' }}"
 
-- name: Debug the group_name, home_dir, shell, and password
+- name: Debug the user_name, group_name, home_dir, shell, and password
   debug:
     msg:
+      - "user_name is set to: {{ username }}"
       - "group_name is set to: {{ group_name }}"
       - "home_dir is set to: {{ home_dir }}"
       - "shell is set to: {{ shell }}"

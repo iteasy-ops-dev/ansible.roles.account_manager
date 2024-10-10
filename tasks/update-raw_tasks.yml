@@ -12,9 +12,11 @@
     msg: "The user {{ username }} does not exist."
   when: user_check.rc != 0
 
-- name: Debug the group_name, home_dir, shell, and password
+- name: Debug the user_name, group_name, home_dir, shell, and password
   debug:
     msg:
+      - "user_name is set to: {{ username }}"
+      - "group_name is set to: {{ group_name }}"
       - "shell is set to: {{ shell }}"
       - "password is set to: {{ password }}"
 
